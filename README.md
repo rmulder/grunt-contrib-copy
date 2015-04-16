@@ -1,4 +1,4 @@
-# grunt-contrib-copy v0.8.2 [![Build Status: Linux](https://travis-ci.org/rmulder/grunt-contrib-copy.svg?branch=master)](https://travis-ci.org/rmulder/grunt-contrib-copy)
+# grunt-contrib-copy v0.8.3 [![Build Status: Linux](https://travis-ci.org/rmulder/grunt-contrib-copy.svg?branch=master)](https://travis-ci.org/rmulder/grunt-contrib-copy)
 
 > Copy files and folders
 
@@ -240,4 +240,4 @@ Aborted due to warnings.
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Thu Apr 16 2015 12:03:48.*
+*This file was generated on Thu Apr 16 2015 12:08:24.*

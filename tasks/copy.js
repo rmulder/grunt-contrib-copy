@@ -15,6 +15,7 @@ module.exports = function(grunt) {
   var chalk = require('chalk');
   var crypto = require('crypto');
   var fileSyncCmp = require('file-sync-cmp');
+  var _ = require('lodash');
 
   grunt.registerMultiTask('copy', 'Copy files.', function() {
 
@@ -24,27 +25,26 @@ module.exports = function(grunt) {
       processContent: false,
       processContentExclude: [],
       timestamp: false,
-      mode: false,
+      mode: false
     });
 
     var copyOptions = {
       encoding: options.encoding,
       process: options.process || options.processContent,
-      noProcess: options.noProcess || options.processContentExclude,
+      noProcess: options.noProcess || options.processContentExclude
     };
 
     var isExpandedPair;
     var dirs = {};
     var tally = {
       dirs: 0,
-      files: 0,
+      files: 0
     };
 
     this.files.forEach(function(filePair) {
       var dest = filePair.dest;
       isExpandedPair = filePair.orig.expand || false;
-
-      filePair.src.forEach(function(src) {
+      _.unique(filePair.src).forEach(function(src) {
         src = unixifyPath(src);
         dest = unixifyPath(dest);
 

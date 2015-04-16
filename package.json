@@ -20,6 +20,7 @@
     "test": "grunt test"
   },
   "dependencies": {
+    "lodash": "^2.4.1",
     "chalk": "^1.0.0",
     "file-sync-cmp": "^0.1.0"
   },

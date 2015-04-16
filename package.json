@@ -1,12 +1,15 @@
 {
   "name": "grunt-contrib-copy",
   "description": "Copy files and folders",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "author": {
     "name": "Grunt Team",
     "url": "http://gruntjs.com/"
   },
-  "repository": "rmulder/grunt-contrib-copy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rmulder/grunt-contrib-copy.git"
+  },
   "licenses": [
     {
       "type": "MIT",

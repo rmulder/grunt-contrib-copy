@@ -2,20 +2,20 @@
  * grunt-contrib-copy
  * http://gruntjs.com/
  *
- * Copyright (c) 2015 Chris Talkington, contributors
+ * Copyright (c) 2016 Chris Talkington, contributors
  * Licensed under the MIT license.
  * https://github.com/gruntjs/grunt-contrib-copy/blob/master/LICENSE-MIT
  */
 
-module.exports = function(grunt) {
-  'use strict';
+'use strict';
 
+module.exports = function(grunt) {
   var path = require('path');
   var fs = require('fs');
   var chalk = require('chalk');
-  var crypto = require('crypto');
   var fileSyncCmp = require('file-sync-cmp');
   var _ = require('lodash');
+  var isWindows = process.platform === 'win32';
 
   grunt.registerMultiTask('copy', 'Copy files.', function() {
 
@@ -34,6 +34,37 @@ module.exports = function(grunt) {
       noProcess: options.noProcess || options.processContentExclude
     };
 
+    var detectDestType = function(dest) {
+      if (grunt.util._.endsWith(dest, '/')) {
+        return 'directory';
+      } else {
+        return 'file';
+      }
+    };
+
+    var unixifyPath = function(filepath) {
+      if (isWindows) {
+        return filepath.replace(/\\/g, '/');
+      } else {
+        return filepath;
+      }
+    };
+
+    var syncTimestamp = function (src, dest) {
+      var stat = fs.lstatSync(src);
+      if (path.basename(src) !== path.basename(dest)) {
+        return;
+      }
+
+      if (stat.isFile() && !fileSyncCmp.equalFiles(src, dest)) {
+        return;
+      }
+
+      var fd = fs.openSync(dest, isWindows ? 'r+' : 'r');
+      fs.futimesSync(fd, stat.atime, stat.mtime);
+      fs.closeSync(fd);
+    };
+
     var isExpandedPair;
     var dirs = {};
     var tally = {
@@ -42,14 +73,13 @@ module.exports = function(grunt) {
     };
 
     this.files.forEach(function(filePair) {
-      var dest = filePair.dest;
       isExpandedPair = filePair.orig.expand || false;
       _.unique(filePair.src).forEach(function(src) {
         src = unixifyPath(src);
-        dest = unixifyPath(dest);
+        var dest = unixifyPath(filePair.dest);
 
         if (detectDestType(dest) === 'directory') {
-          dest = (isExpandedPair) ? dest : path.join(dest, src);
+          dest = isExpandedPair ? dest : path.join(dest, src);
         }
 
         if (grunt.file.isDir(src)) {
@@ -95,32 +125,4 @@ module.exports = function(grunt) {
     grunt.log.writeln();
   });
 
-  var detectDestType = function(dest) {
-    if (grunt.util._.endsWith(dest, '/')) {
-      return 'directory';
-    } else {
-      return 'file';
-    }
-  };
-
-  var unixifyPath = function(filepath) {
-    if (process.platform === 'win32') {
-      return filepath.replace(/\\/g, '/');
-    } else {
-      return filepath;
-    }
-  };
-
-  var syncTimestamp = function (src, dest) {
-    var stat = fs.lstatSync(src);
-    if (path.basename(src) !== path.basename(dest)) {
-      return;
-    }
-
-    if (stat.isFile() && !fileSyncCmp.equalFiles(src, dest)) {
-      return;
-    }
-
-    fs.utimesSync(dest, stat.atime, stat.mtime);
-  };
 };

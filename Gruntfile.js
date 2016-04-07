@@ -2,7 +2,7 @@
  * grunt-contrib-copy
  * http://gruntjs.com/
  *
- * Copyright (c) 2015 Chris Talkington, contributors
+ * Copyright (c) 2016 Chris Talkington, contributors
  * Licensed under the MIT license.
  */
 
@@ -44,6 +44,12 @@ module.exports = function(grunt) {
           {expand: true, cwd: 'test/fixtures', src: ['*.js'], dest: 'tmp/copy_test_files/'},
           {expand: true, cwd: 'test/fixtures', src: ['**', '!*.wav'], dest: 'tmp/copy_test_mix/'},
           {expand: true, cwd: 'test/fixtures', src: ['<%= test_vars.match %>'], dest: 'tmp/copy_test_v<%= test_vars.version %>/'}
+        ]
+      },
+
+      noexpandWild: {
+        files: [
+          {src: 'test/fixtures/*.js', dest: 'tmp/copy_test_noexpandWild/'}
         ]
       },
 
@@ -89,7 +95,7 @@ module.exports = function(grunt) {
       process: {
         options: {
           noProcess: ['test/fixtures/beep.wav'],
-          process: function (content, srcpath) {
+          process: function (content) {
             return content + '/* comment */';
           }
         },

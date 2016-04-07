@@ -39,6 +39,7 @@ $ tree -I node_modules
 ```js
 copy: {
   main: {
+    expand: true,
     src: 'src/*',
     dest: 'dest/',
   },
@@ -64,6 +65,39 @@ $ tree -I node_modules
         └── b
 
 5 directories, 4 files
+```
+
+**Copying without full path:**
+```js
+copy: {
+  main: {
+    expand: true,
+    cwd: 'src',
+    src: '**',
+    dest: 'dest/',
+  },
+},
+```
+
+```shell
+$ grunt copy
+Running "copy:main" (copy) task
+Created 2 directories, copied 2 files
+
+Done, without errors.
+$ tree -I node_modules
+.
+├── Gruntfile.js
+├── dest
+│   ├── a
+│   └── subdir
+│       └── b
+└── src
+    ├── a
+    └── subdir
+        └── b
+
+5 directories, 5 files
 ```
 
 **Flattening the filepath output:**
@@ -113,14 +147,14 @@ copy: {
     dest: 'src/a.bak',
     options: {
       process: function (content, srcpath) {
-        return content.replace(/[sad ]/g,"_");
+        return content.replace(/[sad ]/g, '_');
       },
     },
   },
 },
 ```
 
-Here all occurences of the letters "s", "a" and "d", as well as all spaces, will be changed to underlines in "a.bak". Of course, you are not limited to just using regex replacements.
+Here all occurrences of the letters "s", "a" and "d", as well as all spaces, will be changed to underlines in "a.bak". Of course, you are not limited to just using regex replacements.
 
 To process all files in a directory, the `process` function is used in exactly the same way.
 

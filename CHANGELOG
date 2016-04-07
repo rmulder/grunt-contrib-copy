@@ -1,3 +1,17 @@
+v1.0.0:
+  date: 2016-03-04
+  changes:
+    - Bump devDependencies.
+    - Add example of using relative path.
+    - Point main to task and remove peerDeps.
+v0.8.2:
+  date: 2015-10-19
+  changes:
+    - Fix expand-less copies with multiple files.
+v0.8.1:
+  date: 2015-08-20
+  changes:
+    - Update `chalk` dependency.
 v0.8.0:
   date: 2015-02-20
   changes:
@@ -7,7 +21,7 @@ v0.8.0:
 v0.7.0:
   date: 2014-10-15
   changes:
-    - Add timestamp option to disable preseving timestamp when copying.
+    - Add timestamp option to disable preserving timestamp when copying.
 v0.6.0:
   date: 2014-09-17
   changes:
@@ -16,9 +30,9 @@ v0.6.0:
 v0.5.0:
   date: 2013-12-23
   changes:
-    - If an encoding is specified, overwrite grunt.file.defaultEncoding.
-    - Rename processContent/processContentExclude to process/noProcess to match Grunt API.
-    - mode option to copy existing or set file permissions.
+    - If an encoding is specified, overwrite `grunt.file.defaultEncoding`.
+    - Rename `processContent`/`processContentExclude` to `process`/`noProcess` to match Grunt API.
+    - '`mode` option to copy existing or set file permissions.'
 v0.4.1:
   date: 2013-03-26
   changes:
@@ -37,12 +51,12 @@ v0.4.0rc5:
   changes:
     - Updating to work with grunt v0.4.0rc5.
     - Conversion to grunt v0.4 conventions.
-    - Replace basePath with cwd.
+    - Replace `basePath` with `cwd`.
     - Empty directory support.
 v0.3.2:
   date: 2012-10-18
   changes:
-    - Pass copyOptions on single file copy.
+    - Pass `copyOptions` on single file copy.
 v0.3.1:
   date: 2012-10-12
   changes:
@@ -59,7 +73,7 @@ v0.2.4:
 v0.2.3:
   date: 2012-09-17
   changes:
-    - Path.sep fallback for node <= 0.7.9.
+    - '`path.sep` fallback for Node.js <= 0.7.9.'
 v0.2.2:
   date: 2012-09-17
   changes:
